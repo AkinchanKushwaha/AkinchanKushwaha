@@ -5,6 +5,6 @@
 - 🌱 I’m currently learning Firebase
 - 👯 I’m looking to collaborate on Android Projects and DSA related projects
 - 💬 Ask me about DSA, Java, Kotlin and Android Development
-- 📫 How to reach me:akinchandroger@gmail.com
+- 📫 How to reach me: akinchandroger@gmail.com
 - ⚡ Fun fact: There are over 700 programming languages in the world! 
 
