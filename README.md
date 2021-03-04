@@ -1,5 +1,4 @@
 ### Hi there 👋
-  ![Alt Text](https://media.giphy.com/media/USV0ym3bVWQJJmNu3N/giphy.gif)
 
 - 🔭 I’m currently working on FeetWings android App and Classroom Scheduler App
 - 👯 I’m looking to collaborate on Android Projects and DSA related projects
