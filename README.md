@@ -3,7 +3,6 @@
 
 - 🔭 I’m currently working on [VivaFeet](https://www.linkedin.com/in/vivafeet-ltd-7ab14124a/)
 
-- 🌱 I’m currently learning **Android BLE**
 
 - 💬 Ask me about **Android and Web Development**
 
