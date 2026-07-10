@@ -1,0 +1,39 @@
+name: cook
+
+# Re-cooks the kitchen scene daily so the "COMMITS COOKED" display stays fresh.
+#
+# By default the count comes from the built-in GITHUB_TOKEN, which only sees
+# public commits. To include private commits, create a personal access token
+# and add it as a repo secret named COMMITS_PAT:
+#   gh secret set COMMITS_PAT --repo AkinchanKushwaha/AkinchanKushwaha
+
+on:
+  schedule:
+    - cron: "23 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Re-cook the kitchen
+        env:
+          GH_TOKEN: ${{ secrets.COMMITS_PAT || secrets.GITHUB_TOKEN }}
+        run: node kitchen/generate.js
+
+      - name: Commit if the count changed
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add kitchen/kitchen-dark.svg kitchen/kitchen-light.svg
+            git commit -m "cook: refresh commits-cooked counter"
+            git push
+          else
+            echo "count unchanged — nothing to cook"
+          fi
