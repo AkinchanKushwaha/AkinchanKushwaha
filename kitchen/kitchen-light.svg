@@ -17,19 +17,53 @@
     }
     @keyframes steam {
       0% { opacity: 0; transform: translateY(4px); }
-      30% { opacity: .55; }
-      75%, 100% { opacity: 0; transform: translateY(-14px); }
+      30% { opacity: .6; }
+      75%, 100% { opacity: 0; transform: translateY(-18px); }
     }
     @keyframes blip { 0%, 70% { opacity: 1; } 75%, 95% { opacity: .15; } 100% { opacity: 1; } }
     @keyframes flow { to { stroke-dashoffset: -14; } }
     @keyframes ding {
       0% { opacity: 0; transform: scale(.5); }
-      12% { opacity: 1; transform: scale(1.18); }
-      24% { transform: scale(1); }
-      70% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-8px); }
+      3% { opacity: 1; transform: scale(1.18); }
+      6% { transform: scale(1); }
+      20% { opacity: 1; transform: scale(1); }
+      27%, 100% { opacity: 0; transform: translateY(-8px); }
     }
     .pop { transform-box: fill-box; transform-origin: center; }
+    @keyframes rumble {
+      0%, 24%, 50%, 70%, 100% { transform: translate(0,0); }
+      4% { transform: translate(-.7px,.4px); } 8% { transform: translate(.6px,-.3px); }
+      12% { transform: translate(-.5px,.5px); } 16% { transform: translate(.7px,.2px); }
+      20% { transform: translate(-.4px,-.4px); }
+      54% { transform: translate(.6px,-.4px); } 58% { transform: translate(-.6px,.3px); }
+      62% { transform: translate(.5px,.4px); } 66% { transform: translate(-.7px,-.2px); }
+    }
+    .rumble { animation: rumble 3.6s linear infinite; }
+    @keyframes sway { 0%, 100% { transform: translateX(-8px); } 50% { transform: translateX(8px); } }
+    .sway { animation: sway 6.5s ease-in-out infinite; }
+    @keyframes slip {
+      0%, 58% { transform: translate(0,0) rotate(0); }
+      61% { transform: translate(0,6px) rotate(15deg); }
+      63%, 88% { transform: translate(0,5px) rotate(13deg); }
+      92% { transform: translate(0,-1.5px) rotate(-3deg); }
+      95%, 100% { transform: translate(0,0) rotate(0); }
+    }
+    .slip { animation: slip 12s ease-in-out 5s infinite; transform-box: fill-box; transform-origin: 30% 15%; }
+    @keyframes flutter { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(2.6deg); } }
+    .flutter { animation: flutter 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0%; }
+    @keyframes rattle {
+      0%, 70%, 82%, 100% { transform: rotate(0); }
+      72% { transform: rotate(-4deg); } 75% { transform: rotate(3.2deg); }
+      78% { transform: rotate(-2.4deg); } 80% { transform: rotate(1.6deg); }
+    }
+    .rattle { animation: rattle 8.5s linear 1.2s infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+    @keyframes puff {
+      0%, 100% { opacity: 0; transform: translate(0,0) scale(.6); }
+      6% { opacity: .55; }
+      22% { opacity: 0; transform: translate(-16px,7px) scale(1.7); }
+      23% { transform: translate(0,0) scale(.6); }
+    }
+    .puff { transform-box: fill-box; transform-origin: center; }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
   </style>
 
@@ -57,7 +91,7 @@
     fill="none" stroke="#9aa6b2" stroke-width="4" stroke-linecap="round"/>
   <path d="M440,262 C470,262 476,280 478,300 C480,352 486,400 520,412 C536,417 544,414 558,414"
     fill="none" stroke="#1f883d" stroke-width="2" stroke-linecap="round"
-    stroke-dasharray="4 10" style="animation:flow .9s linear infinite"/>
+    stroke-dasharray="5 9" style="animation:flow .8s linear infinite"/>
 
   <!-- counter -->
   <rect x="84" y="307" width="376" height="123" fill="#e8edf1" stroke="#8c98a4" stroke-width="1.5"/>
@@ -73,17 +107,24 @@
   <path d="M166,124 v9 l9,-9 z" fill="#8c98a4"/>
   <path d="M310,124 v9 l-9,-9 z" fill="#8c98a4"/>
   
-  <rect x="180" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
-  <rect x="178" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
-  <text x="189" y="107" text-anchor="middle" font-size="10" font-weight="700" fill="#4b5663">;</text>
-  <rect x="220" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
-  <rect x="218" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
-  <text x="229" y="107" text-anchor="middle" font-size="7.5" font-weight="700" fill="#4b5663">{ }</text>
-  <rect x="260" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
-  <rect x="258" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
-  <text x="269" y="107" text-anchor="middle" font-size="10" font-weight="700" fill="#4b5663">#</text>
+  <g>
+    <rect x="180" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
+    <rect x="178" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
+    <text x="189" y="107" text-anchor="middle" font-size="10" font-weight="700" fill="#4b5663">;</text>
+  </g>
+  <g class="rattle">
+    <rect x="220" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
+    <rect x="218" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
+    <text x="229" y="107" text-anchor="middle" font-size="7.5" font-weight="700" fill="#4b5663">{ }</text>
+  </g>
+  <g>
+    <rect x="260" y="84" width="18" height="7" rx="2" fill="#8c98a4"/>
+    <rect x="258" y="90" width="22" height="26" rx="3" fill="#eef1f4" stroke="#9aa6b2" stroke-width="1"/>
+    <text x="269" y="107" text-anchor="middle" font-size="10" font-weight="700" fill="#4b5663">#</text>
+  </g>
 
-  <!-- ==================== microwave ==================== -->
+  <!-- ==================== microwave (it's running) ==================== -->
+  <g class="rumble">
   <rect x="100" y="158" width="340" height="136" rx="14" fill="url(#body)" stroke="#7a8794" stroke-width="2"/>
 
   <!-- door -->
@@ -92,14 +133,16 @@
   <g clip-path="url(#glassClip)">
     <ellipse cx="210" cy="248" rx="85" ry="48" fill="url(#heat)" style="animation:breathe 3.8s ease-in-out infinite"/>
     <ellipse cx="210" cy="262" rx="62" ry="7" fill="#2b333e" stroke="#5b6773" stroke-width="1"/>
-    <path d="M182,244 Q182,262 210,262 Q238,262 238,244 Z" fill="#8b99a8"/>
-    <ellipse cx="210" cy="244" rx="28" ry="4.5" fill="#a5b2c0"/>
-    <!-- brace soup -->
-    <text x="196" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out infinite">{</text>
-    <text x="224" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out 1.4s infinite">}</text>
-    <text x="211" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out 2.8s infinite">;</text>
-    <path d="M198,230 q-4,-7 0,-13 q4,-6 0,-12" fill="none" stroke="#ffa657" stroke-width="1.6" stroke-linecap="round" opacity="0" style="animation:steam 3.6s ease-out .5s infinite"/>
-    <path d="M223,230 q4,-7 0,-13 q-4,-6 0,-12" fill="none" stroke="#ffa657" stroke-width="1.6" stroke-linecap="round" opacity="0" style="animation:steam 3.6s ease-out 2.2s infinite"/>
+    <g class="sway">
+      <path d="M182,244 Q182,262 210,262 Q238,262 238,244 Z" fill="#8b99a8"/>
+      <ellipse cx="210" cy="244" rx="28" ry="4.5" fill="#a5b2c0"/>
+      <!-- brace soup -->
+      <text x="196" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out infinite">{</text>
+      <text x="224" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out 1.4s infinite">}</text>
+      <text x="211" y="238" font-size="13" font-weight="700" fill="#ffa657" opacity="0" style="animation:floaty 4.2s ease-out 2.8s infinite">;</text>
+      <path d="M198,230 q-4,-7 0,-13 q4,-6 0,-12" fill="none" stroke="#ffa657" stroke-width="1.8" stroke-linecap="round" opacity="0" style="animation:steam 3.6s ease-out .5s infinite"/>
+      <path d="M223,230 q4,-7 0,-13 q-4,-6 0,-12" fill="none" stroke="#ffa657" stroke-width="1.8" stroke-linecap="round" opacity="0" style="animation:steam 3.6s ease-out 2.2s infinite"/>
+    </g>
   </g>
   <rect x="299" y="180" width="6" height="92" rx="3" fill="#8c98a4"/>
 
@@ -121,10 +164,11 @@
   <text x="373" y="261.5" text-anchor="middle" font-size="6.8" letter-spacing="1.6" fill="#d4681e" style="animation:warmpulse 3s ease-in-out infinite">HOT RELOAD</text>
   <rect x="326" y="269" width="94" height="13" rx="3" fill="#1f883d" stroke="#1a7f37" stroke-width="1"/>
   <text x="373" y="278.5" text-anchor="middle" font-size="6.8" letter-spacing="2" fill="#ffffff">SHIP IT</text>
+  </g>
 
-  <!-- ding! -->
+  <!-- ding! (it will not stop dinging) -->
   <g transform="translate(452,144) rotate(-8)">
-    <text x="0" y="0" font-size="13" font-weight="700" fill="#b58a00" opacity="0" class="pop" style="animation:ding 2.4s ease-out 2.6s both">✦ ding!</text>
+    <text x="0" y="0" font-size="13" font-weight="700" fill="#b58a00" opacity="0" class="pop" style="animation:ding 9s ease-out 2.6s infinite">✦ ding!</text>
   </g>
 
   <!-- ==================== fridge ==================== -->
@@ -136,17 +180,25 @@
   <rect x="574" y="184" width="8" height="116" rx="4" fill="#8c98a4"/>
 
   <g transform="translate(612,98) rotate(-7,11,11)">
-      <rect width="22" height="22" rx="5" fill="#0969da"/>
-      <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">S</text>
+      <g>
+        <rect width="22" height="22" rx="5" fill="#0969da"/>
+        <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">S</text>
+      </g>
     </g><g transform="translate(642,98) rotate(5,11,11)">
-      <rect width="22" height="22" rx="5" fill="#cf222e"/>
-      <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">U</text>
+      <g>
+        <rect width="22" height="22" rx="5" fill="#cf222e"/>
+        <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">U</text>
+      </g>
     </g><g transform="translate(672,98) rotate(-4,11,11)">
-      <rect width="22" height="22" rx="5" fill="#bf8700"/>
-      <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">D</text>
+      <g>
+        <rect width="22" height="22" rx="5" fill="#bf8700"/>
+        <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">D</text>
+      </g>
     </g><g transform="translate(702,98) rotate(8,11,11)">
-      <rect width="22" height="22" rx="5" fill="#1a7f37"/>
-      <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">O</text>
+      <g class="slip">
+        <rect width="22" height="22" rx="5" fill="#1a7f37"/>
+        <text x="11" y="15.5" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace" font-size="12.5" font-weight="700" fill="#ffffff">O</text>
+      </g>
     </g>
   <text x="666" y="152" text-anchor="middle" font-size="7" letter-spacing="2" fill="#59636e">❄ COLD STORAGE</text>
 
@@ -164,11 +216,24 @@
 
   <!-- sticky note -->
   <g transform="translate(640,318) rotate(-5)">
-    <rect width="66" height="50" rx="2" fill="#f2d05c"/>
-    <rect x="18" y="-5" width="30" height="9" fill="rgba(0,0,0,.12)"/>
-    <text x="8" y="18" font-size="8.5" font-weight="700" fill="#4a3b09">TODO:</text>
-    <text x="8" y="31" font-size="8.5" fill="#4a3b09">defrost</text>
-    <text x="8" y="42" font-size="8.5" fill="#4a3b09">prod</text>
+    <g class="flutter">
+      <rect width="66" height="50" rx="2" fill="#f2d05c"/>
+      <rect x="18" y="-5" width="30" height="9" fill="rgba(0,0,0,.12)"/>
+      <text x="8" y="18" font-size="8.5" font-weight="700" fill="#4a3b09">TODO:</text>
+      <text x="8" y="31" font-size="8.5" fill="#4a3b09">defrost</text>
+      <text x="8" y="42" font-size="8.5" fill="#4a3b09">prod</text>
+    </g>
+  </g>
+
+  <!-- the freezer leaks a little cold -->
+  <g class="puff" style="animation:puff 7.4s linear infinite">
+    <circle cx="563" cy="168" r="3.5" fill="#54aeff"/>
+    <circle cx="557" cy="171" r="2.5" fill="#54aeff"/>
+    <circle cx="568" cy="172" r="2" fill="#54aeff"/>
+  </g>
+  <g class="puff" style="animation:puff 7.4s linear 3.7s infinite">
+    <circle cx="564" cy="165" r="2.5" fill="#54aeff"/>
+    <circle cx="558" cy="168" r="3" fill="#54aeff"/>
   </g>
 
   <circle cx="752" cy="408" r="3" fill="#1f883d" style="animation:blip 2.4s linear infinite"/>
