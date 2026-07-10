@@ -220,7 +220,8 @@ function svg(p, count) {
       23% { transform: translate(0,0) scale(.6); }
     }
     .puff { transform-box: fill-box; transform-origin: center; }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+    /* reduce-motion: stop all movement, keep gentle opacity fades (glow, LED, cursor) */
+    @media (prefers-reduced-motion: reduce) { [style*="rollin"], [style*="typeslide"], [style*="floaty"], [style*="steam"], [style*="ding"], [style*="puff"], [style*="flow"], .rumble, .sway, .slip, .flutter, .rattle { animation: none !important; } }
   </style>
 
   <defs>
