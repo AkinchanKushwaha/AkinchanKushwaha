@@ -51,6 +51,8 @@ const DARK = {
   ding: '#ffd257', ship: '#238636', shipText: '#eafff1', shipStroke: '#2ea043',
   hot: '#ffa657', led: '#3fd47f', handle: '#4a5567', tagline: '#7d8894',
   shadow: 'rgba(0,0,0,.35)', feet: '#1c232c', frost: '#a5d6ff',
+  dogA: '#b08a63', dogB: '#8a6a48', dogNose: '#231a12', eyeWhite: '#f6f8fa',
+  pupil: '#1f2328', tongue: '#ef8e7d', collar: '#e5534b', tagFill: '#e3b341', tagText: '#3b2f00',
 };
 
 const LIGHT = {
@@ -69,6 +71,8 @@ const LIGHT = {
   ding: '#b58a00', ship: '#1f883d', shipText: '#ffffff', shipStroke: '#1a7f37',
   hot: '#d4681e', led: '#1f883d', handle: '#8c98a4', tagline: '#59636e',
   shadow: 'rgba(31,35,40,.16)', feet: '#b3bec8', frost: '#54aeff',
+  dogA: '#a97e53', dogB: '#7d5c3a', dogNose: '#241a10', eyeWhite: '#ffffff',
+  pupil: '#1f2328', tongue: '#e0765f', collar: '#cf222e', tagFill: '#d4a72c', tagText: '#3b2f00',
 };
 
 const MONO = `ui-monospace,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace`;
@@ -131,6 +135,47 @@ function terminal(p) {
 }
 
 // ---------------------------------------------------------------------------
+// the QA department — sits in front of the microwave, drools over every build
+// before approving it. tail wag = test suite passing.
+// ---------------------------------------------------------------------------
+
+function dog(p) {
+  return `
+  <!-- QA -->
+  <g transform="translate(430,320)">
+    <ellipse cx="38" cy="117" rx="46" ry="5" fill="${p.shadow}"/>
+    <ellipse cx="6" cy="114.5" rx="8" ry="2" fill="${p.frost}" opacity=".3"/>
+    <ellipse cx="5" cy="113" rx="3.5" ry="1.2" fill="${p.frost}" opacity="0" class="splash"/>
+    <g class="dogbreathe">
+      <rect x="68" y="97" width="24" height="7" rx="3.5" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.2" class="wag"/>
+      <rect x="27" y="78" width="7" height="36" rx="3.5" fill="${p.dogB}"/>
+      <path d="M28,46 C18,62 15,86 17,112 L68,112 C75,104 78,94 77,84 C74,64 60,50 42,46 Z" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.5"/>
+      <path d="M44,74 C56,72 66,80 68,94" fill="none" stroke="${p.dogB}" stroke-width="1.2" opacity=".6"/>
+      <rect x="17" y="74" width="7" height="40" rx="3.5" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.2"/>
+      <ellipse cx="20" cy="113" rx="5.5" ry="3" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.2"/>
+      <ellipse cx="30" cy="113.5" rx="5" ry="2.8" fill="${p.dogB}"/>
+      <ellipse cx="34" cy="25" rx="6" ry="11" transform="rotate(18 34 25)" fill="${p.dogB}"/>
+      <circle cx="24" cy="32" r="17" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.5"/>
+      <ellipse cx="9" cy="27" rx="10" ry="7" transform="rotate(-25 9 27)" fill="${p.dogA}" stroke="${p.dogB}" stroke-width="1.2"/>
+      <circle cx="1.5" cy="20.5" r="2.8" fill="${p.dogNose}"/>
+      <path d="M3,32 Q6,35 10,34" fill="none" stroke="${p.dogB}" stroke-width="1.2"/>
+      <ellipse cx="6" cy="38" rx="2.6" ry="4.5" transform="rotate(-12 6 38)" fill="${p.tongue}"/>
+      <circle cx="20" cy="25" r="4.5" fill="${p.eyeWhite}"/>
+      <circle cx="18.6" cy="23.6" r="2.2" fill="${p.pupil}"/>
+      <circle cx="17.9" cy="22.9" r=".8" fill="${p.eyeWhite}"/>
+      <rect x="11" y="41" width="27" height="6" rx="3" transform="rotate(-14 24 44)" fill="${p.collar}"/>
+      <g class="tagswing">
+        <circle cx="22" cy="48.5" r="1.6" fill="none" stroke="${p.tagFill}" stroke-width="1.2"/>
+        <circle cx="22" cy="56" r="7.5" fill="${p.tagFill}" stroke="${p.tagText}" stroke-width=".8"/>
+        <text x="22" y="58.6" text-anchor="middle" font-size="6.5" font-weight="700" fill="${p.tagText}">QA</text>
+      </g>
+      <path d="M5,41.5 q-.6,2.5 .2,4" fill="none" stroke="${p.frost}" stroke-width="1.8" stroke-linecap="round" opacity=".8"/>
+      <circle cx="5" cy="45.5" r="2.3" fill="${p.frost}" class="drip"/>
+    </g>
+  </g>`;
+}
+
+// ---------------------------------------------------------------------------
 // the scene
 // ---------------------------------------------------------------------------
 
@@ -155,7 +200,7 @@ function svg(p, count) {
   ).join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" role="img"
-  aria-label="Akinchan's kitchen: the microwave has cooked ${count.toLocaleString('en-US')} commits; the fridge runs the build. Compiled hot, served cold.">
+  aria-label="Akinchan's kitchen: the microwave has cooked ${count.toLocaleString('en-US')} commits; the fridge runs the build; a dog wearing a QA tag sits in front of the microwave, drooling over the next release. Compiled hot, served cold.">
   <title>compiled hot · served cold</title>
   <style>
     text { font-family: ${MONO}; }
@@ -220,8 +265,25 @@ function svg(p, count) {
       23% { transform: translate(0,0) scale(.6); }
     }
     .puff { transform-box: fill-box; transform-origin: center; }
+    @keyframes wag { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(16deg); } }
+    .wag { animation: wag .8s ease-in-out infinite; transform-box: fill-box; transform-origin: 0% 50%; }
+    @keyframes drip {
+      0% { opacity: 0; transform: translate(0,0) scale(.4); }
+      10% { opacity: .9; transform: translate(0,1px) scale(.75); }
+      32% { transform: translate(0,3px) scale(1); }
+      40% { transform: translate(0,10px) scale(1); }
+      54% { transform: translate(0,68px) scale(1); }
+      56%, 100% { opacity: 0; transform: translate(0,68px) scale(1); }
+    }
+    .drip { animation: drip 3.2s linear infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes splashy { 0%, 52% { opacity: 0; transform: scaleX(.4); } 57% { opacity: .7; transform: scaleX(1); } 66%, 100% { opacity: 0; transform: scaleX(1.5); } }
+    .splash { animation: splashy 3.2s linear infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes tagswing { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    .tagswing { animation: tagswing 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0%; }
+    @keyframes dogbreathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.015); } }
+    .dogbreathe { animation: dogbreathe 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
     /* reduce-motion: stop all movement, keep gentle opacity fades (glow, LED, cursor) */
-    @media (prefers-reduced-motion: reduce) { [style*="rollin"], [style*="typeslide"], [style*="floaty"], [style*="steam"], [style*="ding"], [style*="puff"], [style*="flow"], .rumble, .sway, .slip, .flutter, .rattle { animation: none !important; } }
+    @media (prefers-reduced-motion: reduce) { [style*="rollin"], [style*="typeslide"], [style*="floaty"], [style*="steam"], [style*="ding"], [style*="puff"], [style*="flow"], .rumble, .sway, .slip, .flutter, .rattle, .wag, .drip, .splash, .tagswing, .dogbreathe { animation: none !important; } }
   </style>
 
   <defs>
@@ -243,10 +305,10 @@ function svg(p, count) {
   <ellipse cx="272" cy="437" rx="205" ry="6" fill="${p.shadow}"/>
   <ellipse cx="667" cy="437" rx="118" ry="6" fill="${p.shadow}"/>
 
-  <!-- cable: microwave output piped into the fridge -->
-  <path d="M440,262 C470,262 476,280 478,300 C480,352 486,400 520,412 C536,417 544,414 558,414"
+  <!-- cable: microwave output piped into the fridge (runs behind the QA department) -->
+  <path d="M440,262 C462,262 468,278 470,300 C471,348 473,398 488,414 C505,430 536,421 558,416"
     fill="none" stroke="${p.cable}" stroke-width="4" stroke-linecap="round"/>
-  <path d="M440,262 C470,262 476,280 478,300 C480,352 486,400 520,412 C536,417 544,414 558,414"
+  <path d="M440,262 C462,262 468,278 470,300 C471,348 473,398 488,414 C505,430 536,421 558,416"
     fill="none" stroke="${p.pulse}" stroke-width="2" stroke-linecap="round"
     stroke-dasharray="5 9" style="animation:flow .8s linear infinite"/>
 
@@ -346,17 +408,19 @@ function svg(p, count) {
   </g>
 
   <!-- the freezer leaks a little cold -->
-  <g class="puff" style="animation:puff 7.4s linear infinite">
+  <g class="puff" opacity="0" style="animation:puff 7.4s linear infinite">
     <circle cx="563" cy="168" r="3.5" fill="${p.frost}"/>
     <circle cx="557" cy="171" r="2.5" fill="${p.frost}"/>
     <circle cx="568" cy="172" r="2" fill="${p.frost}"/>
   </g>
-  <g class="puff" style="animation:puff 7.4s linear 3.7s infinite">
+  <g class="puff" opacity="0" style="animation:puff 7.4s linear 3.7s infinite">
     <circle cx="564" cy="165" r="2.5" fill="${p.frost}"/>
     <circle cx="558" cy="168" r="3" fill="${p.frost}"/>
   </g>
 
   <circle cx="752" cy="408" r="3" fill="${p.led}" style="animation:blip 2.4s linear infinite"/>
+
+  ${dog(p)}
 
   <!-- tagline -->
   <text x="440" y="464" text-anchor="middle" font-size="11" letter-spacing="4" fill="${p.tagline}">COMPILED HOT · SERVED COLD</text>
